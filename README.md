@@ -1,75 +1,37 @@
-# char-similar
->>> 汉字字形/拼音/语义相似度(单字, 可用于数据增强, CSC错别字检测识别任务(构建混淆集))
+# char-similar-z
+ 汉字字形/拼音/语义相似度(单字, 可用于数据增强, CSC错别字检测识别任务(构建混淆集))
+
+- 备注: 完全基于[https://github.com/yongzhuo/char-similar](https://github.com/yongzhuo/char-similar) 项目, 仅修改了部分代码(删除了多线程和多进程，只保留了基础的功能), 使其支持python3.10+版本, 其他功能和使用方式保持一致.
+
+
 
 # 一、安装
-```
-0. 注意事项
-   默认不指定numpy版本(标准版numpy==1.22.4), 过高或者过低的版本可能不支持
-   标准版本的依赖包详见 requirements-all.txt
-   
-1. 通过PyPI安装
-   pip install char-similar
-   使用镜像源, 如：
-   pip install -i https://pypi.tuna.tsinghua.edu.cn/simple char-similar
+```bash
+pip install char_similar_z
 ```
 
 # 二、使用方式
 
-## 2.1 快速使用
+## 2.1 详细使用
 ```python3
-from char_similar import std_cal_sim
+from char_similar_z import std_cal_sim
+
+# "shape"-字形; "all"-汇总字形/词义/拼音; "w2v"-词义优先+字形; "pinyin"-拼音优先+字形
+# kind = "shape"  # "all"  # "w2v"  # "pinyin"  # "shape"
+
+rounded = 4
 char1 = "我"
 char2 = "他"
-res = std_cal_sim(char1, char2)
-print(res)
-# output:
-# 0.5821
-```
+kinds = ["shape", "pinyin", "w2v", "all"]
+for kind in kinds:
+    res = std_cal_sim(char1, char2, rounded=rounded, kind=kind)
+    print(f"汉字相似度({char1}, {char2})[{kind}]: {res}")
 
-## 2.2 详细使用
-```python3
-from char_similar import std_cal_sim
-# "all"(字形:拼音:字义=1:1:1)  # "w2v"(字形:字义=1:1)  # "pinyin"(字形:拼音=1:1)  # "shape"(字形=1)
-kind = "shape"
-rounded = 4  # 保留x位小数
-char1 = "我"
-char2 = "他"
-res = std_cal_sim(char1, char2, rounded=rounded, kind=kind)
-print(res)
-# output:
-# 0.5821
 ```
 
 
-## 2.3 多线程使用
-```python3
-from char_similar import pool_cal_sim
-# "all"(字形:拼音:字义=1:1:1)  # "w2v"(字形:字义=1:1)  # "pinyin"(字形:拼音=1:1)  # "shape"(字形=1)
-kind = "shape"
-rounded = 4  # 保留x位小数
-char1 = "我"
-char2 = "他"
-res = pool_cal_sim(char1, char2, rounded=rounded, kind=kind)
-print(res)
-# output:
-# 0.5821
-```
 
 
-## 2.4 多进程使用(不建议, 实现得较慢)
-```python3
-if __name__ == '__main__':
-    from char_similar import multi_cal_sim
-    # "all"(字形:拼音:字义=1:1:1)  # "w2v"(字形:字义=1:1)  # "pinyin"(字形:拼音=1:1)  # "shape"(字形=1)
-    kind = "shape"
-    rounded = 4  # 保留x位小数
-    char1 = "我"
-    char2 = "他"
-    res = multi_cal_sim(char1, char2, rounded=rounded, kind=kind)
-    print(res)
-    # output:
-    # 0.5821
-```
 
 # 三、技术原理
 ```
