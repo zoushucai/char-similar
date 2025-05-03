@@ -1,3 +1,3 @@
-from .char_similarity_std import std_cal_sim
+from .char_similarity_std import CharSimilarity
 
-__all__ = ["std_cal_sim"]
+__all__ = ["CharSimilarity"]

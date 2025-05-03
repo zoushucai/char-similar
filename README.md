@@ -14,18 +14,21 @@ pip install char_similar_z
 
 ## 2.1 详细使用
 ```python3
-from char_similar_z import std_cal_sim
+import time
+from char_similar_z import CharSimilarity
 
 # "shape"-字形; "all"-汇总字形/词义/拼音; "w2v"-词义优先+字形; "pinyin"-拼音优先+字形
 # kind = "shape"  # "all"  # "w2v"  # "pinyin"  # "shape"
-
-rounded = 4
+# 对于字符而言， 使用 w2v 和all 无意义， 推荐使用 pinyin
+sim = CharSimilarity()
 char1 = "我"
 char2 = "他"
-kinds = ["shape", "pinyin", "w2v", "all"]
-for kind in kinds:
-    res = std_cal_sim(char1, char2, rounded=rounded, kind=kind)
-    print(f"汉字相似度({char1}, {char2})[{kind}]: {res}")
+for kind in ["shape", "pinyin", "w2v", "all"]:
+    t0 = time.time()
+    score = sim.std_cal_sim(char1, char2, kind=kind)
+    t1 = time.time()
+    print(f"相似度({char1}, {char2})[{kind}]: {score}, 用时: {round(t1 - t0, 4)}s")
+
 
 ```
 

@@ -1,6 +1,6 @@
 [project]
 name = "char_similar_z"
-version = "0.1.2"
+version = "0.1.0"
 description = "计算两个字符的相似度"
 authors = [
     {name = "zoushucai",email = "1228075512@qq.com"}
