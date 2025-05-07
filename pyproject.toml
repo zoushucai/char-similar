@@ -1,6 +1,6 @@
 [project]
 name = "char-similar-z"
-version = "0.1.1"
+version = "0.2.0"
 description = "计算两个字符的相似度"
 readme = "README.md"
 authors = [
